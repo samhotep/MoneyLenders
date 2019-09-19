@@ -30,6 +30,8 @@ target 'MoneyLenders' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'react-native-randombytes', :path => '../node_modules/react-native-randombytes'
+
   target 'MoneyLendersTests' do
     inherit! :search_paths
     # Pods for testing

@@ -1,0 +1,1 @@
+global.process.version = "v8.10.0"

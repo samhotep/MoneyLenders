@@ -7,7 +7,7 @@ class GenericButton extends Component {
 	render () {
 		return(
 			<TouchableOpacity style={[styles.genericButton, styles.shadow]}
-				onPress={() => {this.props.navigation.navigate(this.props.link)}}>
+				onPress={this.props.onPress}>
 				<Text style={{color: 'white', fontSize: 16}}>{this.props.text}</Text>
 			</TouchableOpacity>
 		);

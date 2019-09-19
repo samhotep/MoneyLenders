@@ -4,20 +4,49 @@ import styles from '../styles/styles';
 import ItemCard from '../components/ItemCard';
 
 const categories = [
-	{'label': 'Name', 'value': 'name'},
-	{'label': 'Amount', 'value': 'amt'},
-	{'label': 'Due', 'value': 'due'},
-	{'label': 'Status', 'value': 'status'},
+	{'key': 1, 'label': 'Name', 'value': 'name'},
+	{'key': 2, 'label': 'Amount', 'value': 'amt'},
+	{'key': 3, 'label': 'Due', 'value': 'due'},
+	{'key': 4, 'label': 'Status', 'value': 'status'},
 ]
 
 const accounts = [
 	{
+		'key': 1,
 		'name': 'John Stones',
 		'amount': '5000', 
 		'prate': '30%',
 		'due': '12/03/19',
 		'status': 'overdue'
 	},
+	{
+		'key': 2,
+		'name': 'Marcus T',
+		'amount': '10000', 
+		'prate': '30%',
+		'due': '12/06/19',
+		'status': 'overdue'
+	},
+	{
+		'key': 3,
+		'name': 'Kim S',
+		'amount': '90000', 
+		'prate': '30%',
+		'due': '12/11/19',
+		'status': 'paid'
+	},
+	{
+		'key': 4,
+		'name': 'Brenda N',
+		'amount': '15000', 
+		'prate': '30%',
+		'due': '12/03/19',
+		'status': 'paid'
+	},
+]
+
+/*
+const accounts2 = [
 	{
 		'name': 'Marcus T',
 		'amount': '10000', 
@@ -39,15 +68,55 @@ const accounts = [
 		'due': '12/03/19',
 		'status': 'paid'
 	},
-]
+]*/
 
 export default class ItemList extends Component {
 	constructor(props) {
 		super(props);
+		newList = accounts.sort(function(a, b){
+				return a.name.localeCompare(b.name);
+			});
 		this.state = {
 			modalVisible: false,
-			category: ''
+			category: '',
+			currentList: newList,
 		}
+	}
+
+	sortList = (itemValue) => {
+		if (itemValue == 'name') {
+			newList = this.state.currentList.sort(function(a, b){
+				return a.name.localeCompare(b.name);
+			});
+			this.setState({
+				category: itemValue,
+				currentList: newList,
+			});
+		} else if (itemValue == 'amt') {
+			newList = this.state.currentList.sort(function(a, b){
+				return (+a.amount) - (+b.amount);
+			});
+			this.setState({
+				category: itemValue,
+				currentList: newList,
+			});
+		} else if (itemValue == 'due') {
+			newList = this.state.currentList.sort(function(a, b){
+				return a.due.localeCompare(b.due);
+			});
+			this.setState({
+				category: itemValue,
+				currentList: newList,
+			});
+		} else if (itemValue == 'status') {
+			newList = this.state.currentList.sort(function(a, b){
+				return a.status.localeCompare(b.status);
+			});
+			this.setState({
+				category: itemValue,
+				currentList: newList,
+			});
+		} 
 	}
 
 	render() {
@@ -63,8 +132,10 @@ export default class ItemList extends Component {
 					<View style={styles.pickerstyle}>
 	    				<Picker
 	    					selectedValue={this.state.category}
-	    					onValueChange={(itemValue, itemIndex) => 
-	    						this.setState({category: itemValue})}>
+	    					onValueChange={(itemValue, itemIndex) => {
+	    						//this.setState({category: itemValue});
+	    						this.sortList(itemValue);
+	    					}}>	    	
 	    					{categories.map((item, index) => (
 	    						<Picker.Item key={index} label={item.label} value={item.value} />
 							))}
@@ -72,7 +143,7 @@ export default class ItemList extends Component {
 					</View>
 				</View>
 				{
-					accounts.map((item, index) => (
+					this.state.currentList.map((item, index) => (
 						<ItemCard
 							acct={item.name} 
 							amt={item.amount} 

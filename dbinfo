@@ -1,3 +1,8 @@
 mysql -u fWXjGbuSKv -h remotemysql.com -P 3306 -p
 
 p09uOCXjjE
+
+
+TODO 
+1. Setup firebase -> connect to mysql
+2. Finish registraion form UI

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "296610243093",
+    "firebase_url": "https://secret-beacon-250608.firebaseio.com",
+    "project_id": "secret-beacon-250608",
+    "storage_bucket": "secret-beacon-250608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296610243093:android:ef9e126e6705b7f4d1a41c",
+        "android_client_info": {
+          "package_name": "moneylenders.hos.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296610243093-00hkbsgikrq1p1narfqaonmhbljakkrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCytkgemdMtUhIXdwC9Doo8z1-oKkyxRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296610243093-00hkbsgikrq1p1narfqaonmhbljakkrr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

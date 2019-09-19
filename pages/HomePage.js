@@ -12,10 +12,12 @@ import TabIcon from '../components/TabIcon';
 
 import AddCustNav from '../navigation/AddCustNav';
 import MyAccountNav from '../navigation/MyAccountNav';
-//import { LoginContext, loginStatus } from '../store/login-context';
-import { Provider } from '../store/login-context';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import loginReducer from '../reducers/UserReducer';
+import { connect } from 'react-redux';
 
-import { Alert } from 'react-native';
+const store = createStore(loginReducer);
 
 class HomePage extends Component {
 	constructor(props){
@@ -23,30 +25,9 @@ class HomePage extends Component {
 
 		this.toggleLoginStatus = () => {
 			return "EmployeePage2";
-			/*this.setState( state => ({
-				loggedIn: true,
-			}));*/
 			this.setState( state => {
 				loggedIn: !this.state.loggedIn
 			});
-			//return "EmployeePage2";
-			/*this.setState({
-				loggedIn: !this.state.loggedIn
-			});*/
-			/*if (state.loggedIn == false){
-				this.setState({
-					loggedIn: true
-				});
-			} else if (state.loggedIn == true){
-				this.setState({
-					loggedIn: false
-				});
-			}*/
-			/*this.setState(state => {
-				loggedIn:
-					state.loggedIn === loginStatus.loggedIn ? true: false;
-				//return "EmployeePage2";
-			})*/
 		}
 
 		this.state = {
@@ -61,7 +42,7 @@ class HomePage extends Component {
 			<View style={styles.container}>
 				<ScrollView>
 					<View style={styles.bgblock}>
-						<Text style={styles.title}>Money Lenders{this.state.loggedIn?"f":"t"}</Text>
+						<Text style={styles.title}>Money Lenders</Text>
 						<HomeCard/>
 					</View>					
 					<ItemList/>
@@ -127,10 +108,19 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator);
 
 export default class App extends Component{		
+
+	constructor(props) {
+		super(props)
+	}
+
+	addUser = (index) => {
+
+	}
+
 	render () {
 		return (
-			<Provider value={this.state}>
-				<AppContainer/>
+			<Provider store={ store }>
+				<AppContainer screenProps={{addUser: this.addUser}}/>
 			</Provider>
 		);
 	}

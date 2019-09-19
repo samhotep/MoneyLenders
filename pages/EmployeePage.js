@@ -3,29 +3,25 @@ import {Text, View, ScrollView, ToolbarAndroid, FlatList, TouchableOpacity, Imag
 import InfoInput from '../components/InfoInput';
 import GenericButton from '../components/GenericButton';
 import styles from '../styles/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { toggleLogin } from '../actions/UserActions';
+//import users_url from '../routes';
 
-//import { LoginContext } from '../store/login-context';
-import { Consumer } from '../store/login-context';
+const user = [
+	{'name': 'Thomas Hardy', 'active': '22'},
+]
 
-export default class EmployeePage extends Component{
+class EmployeePage extends Component {
 
-	handlePress = (loginStatus, toggleLoginStatus) => {
-		if (loginStatus.loggedIn == false){
-			return "EmployeePage2";
-			toggleLoginStatus();
-		}
-		else {
-			//return "EmployeePage"
-		}
-		//return "EmployeePage2";
-	}
+	handlePress = (state) => {
+		state.props.toggleLogin(user[0].name);
+		state.props.navigation.navigate("EmployeePage2")
 
-	check = (loggedIn) => {
-		if (loggedIn == false){
-			return "false";
-		} else {
-			return "true";
-		}
+		/*
+		fetch('http://10.42.0.1:3000/44rewreoifhsksne8472AdiaDGBausers')
+			.then(response => response.json())
+				.then(users => console.warn(users))*/
 	}
 
 	render() {
@@ -37,17 +33,26 @@ export default class EmployeePage extends Component{
 	        			</Image>
 	        			<Text style={styles.itemlisttitle}>Employee Page</Text>
 					</View>
-					<InfoInput text="Username" image={require('../images/icons/my_account.png')}/>
+						<InfoInput text="Username" image={require('../images/icons/my_account.png')}/>
 					<InfoInput text="Password" image={require('../images/icons/lock_icon.png')}/>
 				</View>
-				<GenericButton text={this.check(this.context.loggedIn)} link={this.context.toggleLoginStatus}/>
+				<GenericButton style={[styles.genericButton, styles.shadow]}
+						text={'Login'} onPress={() => this.handlePress(this)}/>
 			</View>
 		);
 	}
 }
+				//<GenericButton text={this.props.login.loginUser} link={this.handlePress()}/>
 
-const AComp = props => {
-	<Consumer>
-		{context => <EmployeePage {...props} context={context}/>}
-	</Consumer>
+const mapDispatchToProps = dispatch => (
+	bindActionCreators({
+		toggleLogin,
+	}, dispatch)
+);
+
+const mapStateToProps = (state) => {
+	const { login } = state
+	return { login }
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage);
